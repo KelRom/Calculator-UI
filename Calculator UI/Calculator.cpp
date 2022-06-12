@@ -1,8 +1,12 @@
 #include "Calculator.h"
+
+BEGIN_EVENT_TABLE(Calculator, wxFrame)
+END_EVENT_TABLE()
+
 Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 300), wxSize(400, 500), (wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX)))
 {
 	sizerHolder = new wxBoxSizer(wxVERTICAL);
-	textBox = new wxTextCtrl(this, 1, wxEmptyString, wxPoint(0, 0), wxSize(windowWidth, 100), wxTE_BESTWRAP | wxTE_RIGHT | wxTE_READONLY);
+	textBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(0, 0), wxSize(windowWidth, 100), wxTE_BESTWRAP | wxTE_RIGHT | wxTE_READONLY);
 	buttons = new wxButton * [rows * cols];
 	grid = new wxGridSizer(rows, cols, 0, 0);
 
@@ -13,7 +17,8 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 		for (int y = 0; y < cols; y++)
 		{
 			pos = y * rows + x;
-			buttons[pos] = new wxButton(this, 11 + pos, wxEmptyString, wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
+			buttons[pos] = new wxButton(this, pos, wxEmptyString, wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
+			buttons[pos]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Calculator::OnButtonClicked, this);
 			grid->Add(buttons[pos], 1, wxEXPAND | wxALL);
 		}
 	}
@@ -51,8 +56,11 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 	buttons[18]->SetLabel("HEX");
 	buttons[19]->SetLabel("BIN");
 
+	//adding items to he main sizer and then setting the layout for the window
 	sizerHolder->Add(textBox);
-	sizerHolder->Add(new wxButton(this, 10, "CLEAR", wxDefaultPosition, wxSize(buttonWidth * 2 - 3, buttonHeight)), 0, wxALIGN_RIGHT);
+	clearButton = new wxButton(this, 21, "CLEAR", wxDefaultPosition, wxSize(buttonWidth * 2 - 3, buttonHeight));
+	clearButton->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &Calculator::OnButtonClicked, this);
+	sizerHolder->Add(clearButton, 0, wxALIGN_RIGHT);
 	sizerHolder->Add(grid);
 	SetSizer(sizerHolder);
 	sizerHolder->Layout();
@@ -62,4 +70,9 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 Calculator::~Calculator()
 {
 	delete[] buttons;
+}
+
+void Calculator::OnButtonClicked(wxCommandEvent& evt)
+{
+	
 }
