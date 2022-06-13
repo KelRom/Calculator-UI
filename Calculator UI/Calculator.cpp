@@ -6,7 +6,7 @@ END_EVENT_TABLE()
 Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 300), wxSize(400, 500), (wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX)))
 {
 	sizerHolder = new wxBoxSizer(wxVERTICAL);
-	textBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(0, 0), wxSize(windowWidth, 100), wxTE_BESTWRAP | wxTE_RIGHT | wxTE_READONLY);
+	textBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(0, 0), wxSize(windowWidth, 100), wxTE_BESTWRAP | wxTE_RIGHT | wxTE_READONLY | wxTE_NO_VSCROLL);
 	buttons = new wxButton * [rows * cols];
 	grid = new wxGridSizer(rows, cols, 0, 0);
 
@@ -74,5 +74,16 @@ Calculator::~Calculator()
 
 void Calculator::OnButtonClicked(wxCommandEvent& evt)
 {
-	
+	std::vector<wxString> numbers;
+	std::vector<wxString> operands;
+	int id = evt.GetId();
+
+	if (id == 21)
+	{
+		textBox->Clear();
+	}
+	else
+	{
+		*textBox << buttons[id]->GetLabel();
+	}
 }

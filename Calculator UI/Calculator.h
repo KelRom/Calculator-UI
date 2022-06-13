@@ -17,7 +17,6 @@ public:
 	wxGridSizer* grid = nullptr;
 	wxButton** buttons;
 	wxButton* clearButton;
-
 	void OnButtonClicked(wxCommandEvent& evt);
 	wxDECLARE_EVENT_TABLE();
 };
