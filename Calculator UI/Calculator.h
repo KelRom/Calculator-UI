@@ -23,6 +23,7 @@ public:
 	wxDECLARE_EVENT_TABLE();
 };
 
+//THIS WAS ADDED 
 enum IDs
 {
 	One,

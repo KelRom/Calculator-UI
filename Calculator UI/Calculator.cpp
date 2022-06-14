@@ -68,6 +68,7 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 		}
 	}
 
+	//THIS WAS ADDED
 	setbuttonLabels();
 
 	//adding items to he main sizer and then setting the layout for the window
@@ -99,6 +100,7 @@ void Calculator::OnButtonClicked(wxCommandEvent& evt)
 	}
 }
 
+//THIS WAS ADDED
 void Calculator::setbuttonLabels()
 {
 	buttons[3]->SetLabel("+/-");
