@@ -26,7 +26,7 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 
 Calculator::~Calculator()
 {
-	delete[] buttonMaker;
+	delete buttonMaker;
 }
 
 void Calculator::OnButtonClicked(wxCommandEvent& evt)

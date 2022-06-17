@@ -10,16 +10,17 @@ private:
 	int windowWidth = 400;
 	int windowHeight = 500;
 	ButtonFactory* buttonMaker;
+	std::vector<wxButton*> allButtons;
+	wxButton* clearButton = nullptr;
+
 public:
 	int id[5] = { 0, 1, 2, 3 };
 	Calculator();
 	~Calculator();
 	wxBoxSizer* sizerHolder = nullptr;
 	wxTextCtrl* textBox = nullptr;
-	
 	wxGridSizer* grid = nullptr;
-	std::vector<wxButton*> allButtons;
-	wxButton* clearButton = nullptr;
+
 	void OnButtonClicked(wxCommandEvent& evt);
 	wxDECLARE_EVENT_TABLE();
 };
