@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SDK\wxWidgets\include;C:\SDK\wxWidgets\include\msvc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SDK\wxWidgets\include\msvc;  C:\SDK\wxWidgets\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,7 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\SDK\wxWidgets\include;C:\SDK\wxWidgets\include\msvc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\SDK\wxWidgets\include\msvc;  C:\SDK\wxWidgets\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -135,10 +135,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ButtonFactory.h" />
     <ClInclude Include="Calculator.h" />
     <ClInclude Include="CalculatorApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ButtonFactory.cpp" />
     <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="CalculatorApp.cpp" />
   </ItemGroup>
