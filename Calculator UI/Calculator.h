@@ -1,5 +1,6 @@
 #pragma once
 #include "wx/wx.h"
+#include "CalculatorProcessor.h"
 
 class ButtonFactory;
 class Calculator : public wxFrame
@@ -12,14 +13,14 @@ private:
 	ButtonFactory* buttonMaker;
 	std::vector<wxButton*> allButtons;
 	wxButton* clearButton = nullptr;
+	wxGridSizer* grid = nullptr;
+	wxBoxSizer* sizerHolder = nullptr;
 
 public:
-	int id[5] = { 0, 1, 2, 3 };
 	Calculator();
 	~Calculator();
-	wxBoxSizer* sizerHolder = nullptr;
 	wxTextCtrl* textBox = nullptr;
-	wxGridSizer* grid = nullptr;
+	
 
 	void OnButtonClicked(wxCommandEvent& evt);
 	wxDECLARE_EVENT_TABLE();
