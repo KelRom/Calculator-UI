@@ -98,7 +98,6 @@ void CalculatorProcessor::Mod()
 }
 
 
-
 void CalculatorProcessor::Negate(Calculator* window)
 {
 	int operationLocation = findOperation(window);
@@ -106,9 +105,18 @@ void CalculatorProcessor::Negate(Calculator* window)
 	if (posOfNegate == 0)
 	{
 		window->textBox->Clear();
-		return;
 	}
-	if (operation == "" || posOfNegate < operationLocation || operationLocation == 0)
+	else if (operationLocation + 1 == posOfNegate)
+	{
+		window->textBox->Clear();
+		int size = equation.size();
+		for (int i = 0; i < size - posOfNegate;i++)
+		{
+			equation.pop_back();
+		}
+			window->textBox->SetValue(equation);
+	}
+	else if (operation == "" || posOfNegate < operationLocation || operationLocation == 0)
 	{
 		leftOperand = std::stoi(equation.substr(0, posOfNegate));
 		leftOperand = (0 * leftOperand) - leftOperand;
