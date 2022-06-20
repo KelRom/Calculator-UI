@@ -35,21 +35,44 @@ Calculator::~Calculator()
 void Calculator::OnButtonClicked(wxCommandEvent& evt)
 {
 	int id = evt.GetId();
-
+	if (processor->answer == "Can't divide by zero")
+	{
+		textBox->Clear();
+		processor->answer = "";
+	}
 	if (id == ButtonFactory::IDs::Clear)
 	{
 		textBox->Clear();
+		processor->answer = "";
 	}
-	if (id == ButtonFactory::IDs::Bin)
+	
+	else if (id == ButtonFactory::IDs::Equal)
+	{
+		*textBox << processor->Equal(this);
+	
+	}
+	else if(id != ButtonFactory::IDs::Hex &&
+			id != ButtonFactory::IDs::Bin && 
+			id != ButtonFactory::IDs::Dec && 
+			id != ButtonFactory::IDs::FlipSign)
+	{
+		*textBox << allButtons[id]->GetLabel();
+	}
+	else if (id == ButtonFactory::IDs::Hex)
+	{
+		processor->GetHexadecimal(this);
+	}
+	else if (id == ButtonFactory::IDs::Bin)
 	{
 		processor->GetBinary(this);
 	}
-	if (id == ButtonFactory::IDs::Hex)
-	{
-		processor->GetHexadecimanl(this);
-	}
-	if (id == ButtonFactory::IDs::Dec)
+	else if (id == ButtonFactory::IDs::Dec)
 	{
 		processor->GetDecimal(this);
+	}
+	else if (id == ButtonFactory::IDs::FlipSign)
+	{
+		*textBox << allButtons[id]->GetLabel();
+		processor->Negate(this);
 	}
 }

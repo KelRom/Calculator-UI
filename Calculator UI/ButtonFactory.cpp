@@ -119,7 +119,7 @@ wxButton* ButtonFactory::createZeroButton(wxWindow* callingWindow)
 
 wxButton* ButtonFactory::createNegateButton(wxWindow* callingWindow)
 {
-	wxButton* negateButton = new wxButton(callingWindow, IDs::FlipSign, "+/-", wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
+	wxButton* negateButton = new wxButton(callingWindow, IDs::FlipSign, "FlipSign", wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
 	return negateButton;
 }
 
@@ -173,7 +173,7 @@ wxButton* ButtonFactory::createDivideButton(wxWindow* callingWindow)
 
 wxButton* ButtonFactory::createModulusButton(wxWindow* callingWindow)
 {
-	wxButton* modButton = new wxButton(callingWindow, IDs::Mod, "MOD", wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
+	wxButton* modButton = new wxButton(callingWindow, IDs::Mod, "%", wxDefaultPosition, wxSize(buttonWidth, buttonHeight));
 	return modButton;
 }
 

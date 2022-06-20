@@ -3,6 +3,7 @@
 #include "CalculatorProcessor.h"
 
 class ButtonFactory;
+class CalculatorProcessor;
 class Calculator : public wxFrame
 {
 private:

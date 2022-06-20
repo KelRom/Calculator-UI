@@ -13,52 +13,158 @@ CalculatorProcessor* CalculatorProcessor::GetInstance()
 	return _processor;
 }
 
-std::string CalculatorProcessor::Add()
+int CalculatorProcessor::findOperation(Calculator* window)
 {
-	return std::string();
+	equation = window->textBox->GetLineText(0).ToStdString();
+	int operationLocation = -1;
+	// at one in case the number is negative
+	for (int i = 1; i < equation.size(); i++)
+	{
+		if (equation[i] == '+' || equation[i] == '-' || equation[i] == '*' || equation[i] == '/' || equation[i] == '%')
+		{
+			operation = equation[i];
+			operationLocation = i;
+			break;
+		}
+	}
+	return operationLocation;
 }
 
-std::string CalculatorProcessor::Subtract()
+void CalculatorProcessor::getOperands(Calculator* window)
 {
-	return std::string();
+	int operationLocation = findOperation(window);
+	int findEqual = equation.find("=");
+	if (answer != "" && operation == "")
+	{
+		answer = answer;
+	}
+	else if (findEqual == 0 || operationLocation == 0 || operation == "")
+	{
+		answer = "";
+	}
+	else
+	{
+		operation = equation[operationLocation];
+		if (operationLocation + 1 == findEqual)
+		{
+			leftOperand = std::stoi(equation.substr(0, operationLocation));
+			operation = "";
+			answer = answer = std::to_string(leftOperand);
+		}
+		else
+		{
+			leftOperand = std::stoi(equation.substr(0, operationLocation));
+			rightOperand = std::stoi(equation.substr(operationLocation + 1, findEqual));
+		}
+	}
+	
 }
 
-std::string CalculatorProcessor::Multiply()
+void CalculatorProcessor::Add()
 {
-	return std::string();
+	int result = leftOperand + rightOperand;
+	answer = std::to_string(result);
 }
 
-std::string CalculatorProcessor::Divide()
+void CalculatorProcessor::Subtract()
 {
-	return std::string();
+	int result = leftOperand - rightOperand;
+	answer = std::to_string(result);
 }
 
-std::string CalculatorProcessor::Equal()
+void CalculatorProcessor::Multiply()
 {
-	return std::string();
+	int result = leftOperand * rightOperand;
+	answer = std::to_string(result);
 }
 
-std::string CalculatorProcessor::Negate()
+void CalculatorProcessor::Divide()
 {
-	return std::string();
+	if (rightOperand == 0)
+	{
+		answer = "Can't divide by zero";
+	}
+	else
+	{
+		int result =  leftOperand / rightOperand;
+		answer = std::to_string(result);
+	}
 }
 
-std::string CalculatorProcessor::Mod()
+void CalculatorProcessor::Mod()
 {
-	return std::string();
+	int result = leftOperand % rightOperand;
+	answer = std::to_string(result);
+}
+
+
+
+void CalculatorProcessor::Negate(Calculator* window)
+{
+	int operationLocation = findOperation(window);
+	int posOfNegate = equation.find("FlipSign");
+	if (operation == "" || posOfNegate < operationLocation || operationLocation == 0)
+	{
+		leftOperand = std::stoi(equation.substr(0, posOfNegate));
+		leftOperand = (0 * leftOperand) - leftOperand;
+		window->textBox->SetValue(std::to_string(leftOperand));
+	}
+	else if (posOfNegate > operationLocation)
+	{
+		leftOperand = std::stoi(equation.substr(0, operationLocation));
+		rightOperand = std::stoi(equation.substr(operationLocation + 1));
+		rightOperand = (0 * rightOperand) - rightOperand;
+		window->textBox->SetValue(std::to_string(leftOperand) + std::to_string(rightOperand));
+	}
+}
+
+std::string CalculatorProcessor::Equal(Calculator* window)
+{
+	getOperands(window);
+	if (operation == "+")
+	{
+		Add();
+	}
+	else if (operation == "-")
+	{
+		Subtract();
+	}
+	else if (operation == "*")
+	{
+		Multiply();
+	}
+	else if (operation == "/")
+	{
+		Divide();
+	}
+	else if (operation == "%")
+	{
+		Mod();
+	}
+	window->textBox->Clear();
+	if (answer == "Can't divide by zero")
+	{
+		operation = "";
+		return answer;
+	}
+	if (answer != "")
+	{
+		leftOperand = std::stoi(answer);
+		rightOperand = NULL;
+	}
+	operation = "";
+	return answer;
 }
 
 void CalculatorProcessor::GetDecimal(Calculator* window)
 {
-	calculatorMain = window;
-	calculatorMain->textBox->SetValue(std::to_string(answer));
+	window->textBox->SetValue(answer);
 }
 
 void CalculatorProcessor::GetBinary(Calculator* window)
 {
-	calculatorMain = window;
 	std::string result = "";
-	int number = answer;
+	int number = std::stoi(answer);
 	int mod = 0;
 	while (number > 0)
 	{
@@ -66,14 +172,13 @@ void CalculatorProcessor::GetBinary(Calculator* window)
 		result = std::to_string(mod) + result;
 		number /= 2;
 	}
-	calculatorMain->textBox->SetValue(result);
+	window->textBox->SetValue(result);
 }
 
-void CalculatorProcessor::GetHexadecimanl(Calculator* window)
+void CalculatorProcessor::GetHexadecimal(Calculator* window)
 {
-	calculatorMain = window;
 	std::string result = "";
-	int number = answer;
+	int number = std::stoi(answer);
 	int mod = 0;
 	while (number > 0)
 	{
@@ -111,6 +216,6 @@ void CalculatorProcessor::GetHexadecimanl(Calculator* window)
 	}
 
 	result = "0x" + result;
-	calculatorMain->textBox->SetValue(result);
+	window->textBox->SetValue(result);
 }
 
