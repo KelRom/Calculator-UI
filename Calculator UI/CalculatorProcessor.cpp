@@ -103,6 +103,11 @@ void CalculatorProcessor::Negate(Calculator* window)
 {
 	int operationLocation = findOperation(window);
 	int posOfNegate = equation.find("FlipSign");
+	if (posOfNegate == 0)
+	{
+		window->textBox->Clear();
+		return;
+	}
 	if (operation == "" || posOfNegate < operationLocation || operationLocation == 0)
 	{
 		leftOperand = std::stoi(equation.substr(0, posOfNegate));
@@ -114,7 +119,7 @@ void CalculatorProcessor::Negate(Calculator* window)
 		leftOperand = std::stoi(equation.substr(0, operationLocation));
 		rightOperand = std::stoi(equation.substr(operationLocation + 1));
 		rightOperand = (0 * rightOperand) - rightOperand;
-		window->textBox->SetValue(std::to_string(leftOperand) + std::to_string(rightOperand));
+		window->textBox->SetValue(std::to_string(leftOperand) +  operation + std::to_string(rightOperand));
 	}
 }
 
@@ -164,6 +169,10 @@ void CalculatorProcessor::GetDecimal(Calculator* window)
 void CalculatorProcessor::GetBinary(Calculator* window)
 {
 	std::string result = "";
+	if (answer == "")
+	{
+		return;
+	}
 	int number = std::stoi(answer);
 	int mod = 0;
 	while (number > 0)
@@ -178,6 +187,10 @@ void CalculatorProcessor::GetBinary(Calculator* window)
 void CalculatorProcessor::GetHexadecimal(Calculator* window)
 {
 	std::string result = "";
+	if (answer == "")
+	{
+		return;
+	}
 	int number = std::stoi(answer);
 	int mod = 0;
 	while (number > 0)

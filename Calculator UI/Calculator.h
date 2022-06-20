@@ -7,6 +7,7 @@ class CalculatorProcessor;
 class Calculator : public wxFrame
 {
 private:
+	bool enableButtons = true;
 	int rows = 4;
 	int cols = 5;
 	int windowWidth = 400;
@@ -17,6 +18,7 @@ private:
 	wxGridSizer* grid = nullptr;
 	wxBoxSizer* sizerHolder = nullptr;
 	CalculatorProcessor* processor;
+	void EnableButtons();
 
 public:
 	Calculator();

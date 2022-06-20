@@ -38,25 +38,37 @@ void Calculator::OnButtonClicked(wxCommandEvent& evt)
 	if (processor->answer == "Can't divide by zero")
 	{
 		textBox->Clear();
+		enableButtons = true;
+		EnableButtons();
 		processor->answer = "";
 	}
 	if (id == ButtonFactory::IDs::Clear)
 	{
 		textBox->Clear();
+		enableButtons = true;
+		EnableButtons();
 		processor->answer = "";
 	}
 	
 	else if (id == ButtonFactory::IDs::Equal)
 	{
 		*textBox << processor->Equal(this);
+		enableButtons = true;
+		EnableButtons();
 	
 	}
-	else if(id != ButtonFactory::IDs::Hex &&
-			id != ButtonFactory::IDs::Bin && 
-			id != ButtonFactory::IDs::Dec && 
-			id != ButtonFactory::IDs::FlipSign)
+	else if (id != ButtonFactory::IDs::Hex &&
+			 id != ButtonFactory::IDs::Bin &&
+			 id != ButtonFactory::IDs::Dec &&
+			 id != ButtonFactory::IDs::FlipSign)
 	{
 		*textBox << allButtons[id]->GetLabel();
+		//Disable all the operations button so the only option left to press is =. This is a restriction to avoid multiple operations at once, avoid PEMDAS and avoid errors
+		if (id == ButtonFactory::IDs::Add || id == ButtonFactory::IDs::Sub || id == ButtonFactory::IDs::Mult || id == ButtonFactory::IDs::Div || id == ButtonFactory::IDs::Mod)
+		{
+			enableButtons = false;
+			EnableButtons();
+		}
 	}
 	else if (id == ButtonFactory::IDs::Hex)
 	{
@@ -75,4 +87,24 @@ void Calculator::OnButtonClicked(wxCommandEvent& evt)
 		*textBox << allButtons[id]->GetLabel();
 		processor->Negate(this);
 	}
+}
+void Calculator::EnableButtons()
+{
+	if (enableButtons)
+	{
+		allButtons[ButtonFactory::IDs::Add]->Enable();
+		allButtons[ButtonFactory::IDs::Sub]->Enable();
+		allButtons[ButtonFactory::IDs::Mult]->Enable();
+		allButtons[ButtonFactory::IDs::Div]->Enable();
+		allButtons[ButtonFactory::IDs::Mod]->Enable();
+	}
+	else
+	{
+		allButtons[ButtonFactory::IDs::Add]->Disable();
+		allButtons[ButtonFactory::IDs::Sub]->Disable();
+		allButtons[ButtonFactory::IDs::Mult]->Disable();
+		allButtons[ButtonFactory::IDs::Div]->Disable();
+		allButtons[ButtonFactory::IDs::Mod]->Disable();
+	}
+	
 }
