@@ -15,6 +15,7 @@ private:
 	wxButton* clearButton = nullptr;
 	wxGridSizer* grid = nullptr;
 	wxBoxSizer* sizerHolder = nullptr;
+	CalculatorProcessor* processor;
 
 public:
 	Calculator();

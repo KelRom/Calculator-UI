@@ -3,8 +3,10 @@
 
 CalculatorProcessor* CalculatorProcessor::_processor = nullptr;
 
+
 CalculatorProcessor* CalculatorProcessor::GetInstance()
 {
+	
 	if (_processor == nullptr)
 		_processor = new CalculatorProcessor();
 	
@@ -13,7 +15,7 @@ CalculatorProcessor* CalculatorProcessor::GetInstance()
 
 std::string CalculatorProcessor::Add()
 {
-
+	return std::string();
 }
 
 std::string CalculatorProcessor::Subtract()
@@ -46,18 +48,69 @@ std::string CalculatorProcessor::Mod()
 	return std::string();
 }
 
-std::string CalculatorProcessor::GetBinary()
+void CalculatorProcessor::GetDecimal(Calculator* window)
 {
-	return std::string();
+	calculatorMain = window;
+	calculatorMain->textBox->SetValue(std::to_string(answer));
 }
 
-std::string CalculatorProcessor::GetDecimal()
+void CalculatorProcessor::GetBinary(Calculator* window)
 {
-	return std::string();
+	calculatorMain = window;
+	std::string result = "";
+	int number = answer;
+	int mod = 0;
+	while (number > 0)
+	{
+		mod = number % 2;
+		result = std::to_string(mod) + result;
+		number /= 2;
+	}
+	calculatorMain->textBox->SetValue(result);
 }
 
-std::string CalculatorProcessor::GetHexadecimanl()
+void CalculatorProcessor::GetHexadecimanl(Calculator* window)
 {
-	return std::string();
+	calculatorMain = window;
+	std::string result = "";
+	int number = answer;
+	int mod = 0;
+	while (number > 0)
+	{
+		mod = number % 16;
+		if (mod < 10)
+		{
+			result = std::to_string(mod) + result;
+		}
+		else if (mod == 10)
+		{
+			result = "A" + result;
+		}
+		else if (mod == 11)
+		{
+			result = "B" + result;
+		}
+		else if (mod == 12)
+		{
+			result = "C" + result;
+		}
+		else if (mod == 13)
+		{
+			result = "D" + result;
+		}
+		else if (mod == 14)
+		{
+			result = "E" + result;
+		}
+		else if (mod == 15)
+		{
+			result = "F" + result;
+		}
+
+		number /= 16;
+	}
+
+	result = "0x" + result;
+	calculatorMain->textBox->SetValue(result);
 }
 

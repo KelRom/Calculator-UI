@@ -4,6 +4,7 @@
 
 Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 300), wxSize(400, 500), (wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxMAXIMIZE_BOX)))
 {
+	processor = CalculatorProcessor::GetInstance();
 	sizerHolder = new wxBoxSizer(wxVERTICAL);
 	textBox = new wxTextCtrl(this, wxID_ANY, wxEmptyString, wxPoint(0, 0), wxSize(windowWidth, 100), wxTE_BESTWRAP | wxTE_RIGHT | wxTE_READONLY | wxTE_NO_VSCROLL);
 	buttonMaker = new ButtonFactory();
@@ -28,6 +29,7 @@ Calculator::Calculator() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200,
 Calculator::~Calculator()
 {
 	delete buttonMaker;
+	delete processor;
 }
 
 void Calculator::OnButtonClicked(wxCommandEvent& evt)
@@ -38,8 +40,16 @@ void Calculator::OnButtonClicked(wxCommandEvent& evt)
 	{
 		textBox->Clear();
 	}
-	else
+	if (id == ButtonFactory::IDs::Bin)
 	{
-		*textBox << allButtons[id]->GetLabel();
+		processor->GetBinary(this);
+	}
+	if (id == ButtonFactory::IDs::Hex)
+	{
+		processor->GetHexadecimanl(this);
+	}
+	if (id == ButtonFactory::IDs::Dec)
+	{
+		processor->GetDecimal(this);
 	}
 }

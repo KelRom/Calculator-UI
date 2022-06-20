@@ -7,13 +7,12 @@ class CalculatorProcessor
 private:
 	static CalculatorProcessor* _processor;
 	CalculatorProcessor() {};
-	int baseNumber = 0;
-	Calculator* c;
+	int answer = 198;
+	Calculator* calculatorMain;
 public:
 	static CalculatorProcessor* GetInstance();
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 	void operator= (const CalculatorProcessor& other) = delete; 
-	
 	std::string Add();
 	std::string Subtract();
 	std::string Multiply();
@@ -21,8 +20,8 @@ public:
 	std::string Equal();
 	std::string Negate();
 	std::string Mod();
-	std::string GetBinary();
-	std::string GetDecimal();
-	std::string GetHexadecimanl();
+	void GetBinary(Calculator* window);
+	void GetDecimal(Calculator* window);
+	void GetHexadecimanl(Calculator* window);
 };
 
