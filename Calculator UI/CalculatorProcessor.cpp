@@ -18,7 +18,7 @@ int CalculatorProcessor::findOperation(Calculator* window)
 	equation = window->textBox->GetLineText(0).ToStdString();
 	int operationLocation = -1;
 	// at one in case the number is negative
-	for (int i = 1; i < equation.size(); i++)
+	for (size_t i = 1; i < equation.size(); i++)
 	{
 		if (equation[i] == '+' || equation[i] == '-' || equation[i] == '*' || equation[i] == '/' || equation[i] == '%')
 		{
