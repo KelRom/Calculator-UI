@@ -119,14 +119,14 @@ void CalculatorProcessor::Negate(Calculator* window)
 	else if (operation == "" || posOfNegate < operationLocation || operationLocation == 0)
 	{
 		leftOperand = std::stoi(equation.substr(0, posOfNegate));
-		leftOperand = (0 * leftOperand) - leftOperand;
+		leftOperand *= -1;
 		window->textBox->SetValue(std::to_string(leftOperand));
 	}
 	else if (posOfNegate > operationLocation)
 	{
 		leftOperand = std::stoi(equation.substr(0, operationLocation));
 		rightOperand = std::stoi(equation.substr(operationLocation + 1));
-		rightOperand = (0 * rightOperand) - rightOperand;
+		rightOperand *= -1;
 		window->textBox->SetValue(std::to_string(leftOperand) +  operation + std::to_string(rightOperand));
 	}
 }
