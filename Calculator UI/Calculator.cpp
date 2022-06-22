@@ -47,7 +47,7 @@ void Calculator::OnButtonClicked(wxCommandEvent& evt)
 		textBox->Clear();
 		enableButtons = true;
 		EnableButtons();
-		processor->answer = "";
+		processor->ResetOnClear(evt);
 	}
 	
 	else if (id == ButtonFactory::IDs::Equal)

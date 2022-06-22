@@ -19,6 +19,7 @@ private:
 	void Divide();	
 	void Mod();
 	int findOperation(Calculator* window);
+	
 
 public:
 	static CalculatorProcessor* GetInstance();
@@ -30,5 +31,6 @@ public:
 	void GetDecimal(Calculator* window);
 	void GetHexadecimal(Calculator* window);
 	void Negate(Calculator* window);
+	void ResetOnClear(wxCommandEvent& evt);
 };
 

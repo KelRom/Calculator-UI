@@ -60,6 +60,17 @@ void CalculatorProcessor::getOperands(Calculator* window)
 	
 }
 
+void CalculatorProcessor::ResetOnClear(wxCommandEvent& evt)
+{
+	int id = evt.GetId();
+	if (id == ButtonFactory::IDs::Clear)
+	{
+		answer = "";
+		leftOperand = 0;
+		rightOperand = 0;
+	}
+}
+
 void CalculatorProcessor::Add()
 {
 	int result = leftOperand + rightOperand;
@@ -201,7 +212,7 @@ void CalculatorProcessor::GetHexadecimal(Calculator* window)
 	}
 	int number = std::stoi(answer);
 	int mod = 0;
-	while (number > 0)
+	while (number != 0)
 	{
 		mod = number % 16;
 		if (mod < 10)
