@@ -73,19 +73,19 @@ void CalculatorProcessor::ResetOnClear(wxCommandEvent& evt)
 
 void CalculatorProcessor::Add()
 {
-	int result = leftOperand + rightOperand;
+	double result = leftOperand + rightOperand;
 	answer = std::to_string(result);
 }
 
 void CalculatorProcessor::Subtract()
 {
-	int result = leftOperand - rightOperand;
+	double result = leftOperand - rightOperand;
 	answer = std::to_string(result);
 }
 
 void CalculatorProcessor::Multiply()
 {
-	int result = leftOperand * rightOperand;
+	double result = leftOperand * rightOperand;
 	answer = std::to_string(result);
 }
 
@@ -97,14 +97,14 @@ void CalculatorProcessor::Divide()
 	}
 	else
 	{
-		int result =  leftOperand / rightOperand;
+		double result =  leftOperand / rightOperand;
 		answer = std::to_string(result);
 	}
 }
 
 void CalculatorProcessor::Mod()
 {
-	int result = leftOperand % rightOperand;
+	double result = std::fmod(leftOperand,rightOperand);
 	answer = std::to_string(result);
 }
 
@@ -194,11 +194,17 @@ void CalculatorProcessor::GetBinary(Calculator* window)
 	}
 	int number = std::stoi(answer);
 	int mod = 0;
-	while (number > 0)
+	for (int i = 0; i < 32; i++)
 	{
-		mod = number % 2;
-		result = std::to_string(mod) + result;
-		number /= 2;
+		if (number % 2 == 0)
+		{
+			result = "0" + result;
+		}
+		else
+		{
+			result = "1" + result;
+		}
+		number = number / 2;
 	}
 	window->textBox->SetValue(result);
 }
@@ -212,7 +218,7 @@ void CalculatorProcessor::GetHexadecimal(Calculator* window)
 	}
 	int number = std::stoi(answer);
 	int mod = 0;
-	while (number != 0)
+	while (number > 0)
 	{
 		mod = number % 16;
 		if (mod < 10)
@@ -244,7 +250,7 @@ void CalculatorProcessor::GetHexadecimal(Calculator* window)
 			result = "F" + result;
 		}
 
-		number /= 16;
+		number =  number / 16;
 	}
 
 	result = "0x" + result;

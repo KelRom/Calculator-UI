@@ -8,8 +8,8 @@ class CalculatorProcessor
 private:
 	static CalculatorProcessor* _processor;
 	CalculatorProcessor() {};
-	int leftOperand = 0;
-	int rightOperand = 0;
+	double leftOperand = 0;
+	double rightOperand = 0;
 	std::string operation;
 	std::string equation;
 	void getOperands(Calculator* window);
@@ -22,6 +22,7 @@ private:
 	
 
 public:
+	
 	static CalculatorProcessor* GetInstance();
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 	void operator= (const CalculatorProcessor& other) = delete;	
