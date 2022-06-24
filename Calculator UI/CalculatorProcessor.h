@@ -1,6 +1,10 @@
 #pragma once
 #include "wx/wx.h"
 #include "ButtonFactory.h"
+#include "AddCommand.h"
+#include "SubtractCommand.h"
+#include "MultiplyCommand.h"
+#include "DivideCommand.h"
 
 class Calculator;
 class CalculatorProcessor
@@ -19,6 +23,7 @@ private:
 	void Divide();	
 	void Mod();
 	int findOperation(Calculator* window);
+	std::vector<IBaseCommand*> commands;
 	
 
 public:
