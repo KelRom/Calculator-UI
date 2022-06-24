@@ -156,16 +156,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Calculator UI\AddCommand.cpp" />
     <ClCompile Include="..\Calculator UI\ButtonFactory.cpp" />
     <ClCompile Include="..\Calculator UI\Calculator.cpp" />
     <ClCompile Include="..\Calculator UI\CalculatorProcessor.cpp" />
+    <ClCompile Include="..\Calculator UI\DivideCommand.cpp" />
+    <ClCompile Include="..\Calculator UI\MultiplyCommand.cpp" />
+    <ClCompile Include="..\Calculator UI\SubtractCommand.cpp" />
     <ClCompile Include="ButtonFactoryTests.cpp" />
     <ClCompile Include="CalculatorProcessorTests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Calculator UI\AddCommand.h" />
     <ClInclude Include="..\Calculator UI\ButtonFactory.h" />
     <ClInclude Include="..\Calculator UI\Calculator.h" />
     <ClInclude Include="..\Calculator UI\CalculatorProcessor.h" />
+    <ClInclude Include="..\Calculator UI\DivideCommand.h" />
+    <ClInclude Include="..\Calculator UI\IBaseCommand.h" />
+    <ClInclude Include="..\Calculator UI\MultiplyCommand.h" />
+    <ClInclude Include="..\Calculator UI\SubtractCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
