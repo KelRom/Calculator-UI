@@ -71,24 +71,6 @@ void CalculatorProcessor::ResetOnClear(wxCommandEvent& evt)
 	}
 }
 
-void CalculatorProcessor::Add()
-{
-	double result = leftOperand + rightOperand;
-	answer = std::to_string(result);
-}
-
-void CalculatorProcessor::Subtract()
-{
-	double result = leftOperand - rightOperand;
-	answer = std::to_string(result);
-}
-
-void CalculatorProcessor::Multiply()
-{
-	double result = leftOperand * rightOperand;
-	answer = std::to_string(result);
-}
-
 void CalculatorProcessor::Divide()
 {
 	if (rightOperand == 0)
@@ -147,19 +129,43 @@ std::string CalculatorProcessor::Equal(Calculator* window)
 	getOperands(window);
 	if (operation == "+")
 	{
-		Add();
+		AddCommand add(leftOperand, rightOperand);
+		commands.push_back((IBaseCommand*) & add);
+		double a = commands[0]->Execute();
+		commands.pop_back();
+		answer = std::to_string(a);
 	}
 	else if (operation == "-")
 	{
-		Subtract();
+		SubtractCommand sub(leftOperand, rightOperand);
+		commands.push_back((IBaseCommand*) &sub);
+		double a = commands[0]->Execute();
+		commands.pop_back();
+		answer = std::to_string(a);
 	}
 	else if (operation == "*")
 	{
-		Multiply();
+		MultiplyCommand mult(leftOperand, rightOperand);
+		commands.push_back((IBaseCommand*) &mult);
+		double a = commands[0]->Execute();
+		commands.pop_back();
+		answer = std::to_string(a);
 	}
 	else if (operation == "/")
 	{
-		Divide();
+		if (rightOperand == 0)
+		{
+			answer = "Can't divide by zero";
+		}
+		else
+		{
+			DivideCommand div(leftOperand, rightOperand);
+			commands.push_back((IBaseCommand*) &div);
+			double a = commands[0]->Execute();
+			commands.pop_back();
+			answer = std::to_string(a);
+		}
+		
 	}
 	else if (operation == "%")
 	{
